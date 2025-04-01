@@ -34,9 +34,9 @@ jobs:
       - name: Build pages
         run: ./scripts/build_pages.sh
 
-      # - name: Configure GPG
-      #   run: |
-      #     echo GNUPGHOME="$(mktemp -d /tmp/pgpkeys-XXXXXX)" >> $GITHUB_ENV
+      - name: Configure GPG
+        run: |
+          echo GNUPGHOME="$(mktemp -d /tmp/pgpkeys-XXXXXX)" >> $GITHUB_ENV
 
       - name: Import GPG key
         id: import_gpg
