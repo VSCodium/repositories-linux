@@ -63,6 +63,9 @@ for GH_REPOSITORY in ${GH_REPOSITORIES}; do
   get_install_files "${GH_REPOSITORY}"
 done
 
+GPG_TTY=""
+export GPG_TTY
+
 if (( "${GOT_RPM}" )); then
   echo "== Scanning RPM packages and creating the repository"
 
@@ -99,7 +102,7 @@ if (( "${GOT_DEB}" )); then
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
     echo "Signing"
 
-    pushd pkgs/deb > /dev/null
+    pushd pkgs/deb/dist/${REPO_NAME} > /dev/null
 
     gpg --detach-sign --armor --sign > Release.gpg < Release
     gpg --detach-sign --armor --sign --clearsign > InRelease < Release
