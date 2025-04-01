@@ -60,7 +60,7 @@ jobs:
         run: ./scripts/build_repos.sh
 
       - name: Upload packages
-        run: ./script/upload_r2.sh
+        run: ./scripts/upload_r2.sh
 
       - name: Move repositories
         run: mv pkgs/* _site
