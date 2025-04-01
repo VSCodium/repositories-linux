@@ -12,7 +12,7 @@ GOT_RPM=0
 get_install_files() {
   GH_REPOSITORY="$1"
 
-  GITHUB_RESPONSE=$( curl -s "https://api.${GH_HOST}/repos/${GH_REPOSITORY}/releases/latest" )
+  GITHUB_RESPONSE=$( curl --silent --fail "https://api.${GH_HOST}/repos/${GH_REPOSITORY}/releases/latest" )
   TAG=$( echo "${GITHUB_RESPONSE}" | jq -c -r '.tag_name' )
 
   FILES="$( echo "${GITHUB_RESPONSE}" | jq -r '.assets[] | select(.name | endswith(".rpm")) | .name' )"
@@ -68,11 +68,11 @@ if (( "${GOT_RPM}" )); then
 
   pushd pkgs/rpm > /dev/null
 
-  # if [[ -n "${GPG_FINGERPRINT}" ]]; then
-  #   echo "Signing"
+  if [[ -n "${GPG_FINGERPRINT}" ]]; then
+    echo "Signing"
 
-  #   rpm --define "%_signature gpg" --define "%_gpg_name ${GPG_FINGERPRINT}" --addsign *rpm
-  # fi
+    rpm --define "%_signature gpg" --define "%_gpg_name ${GPG_FINGERPRINT}" --addsign *rpm
+  fi
 
   createrepo_c --database --compatibility .
 
