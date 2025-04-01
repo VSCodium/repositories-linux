@@ -96,7 +96,7 @@ if [[ "${GOT_RPM}" == "yes" ]]; then
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
     echo "Signing the repo Metadata"
 
-    gpg --detach-sign --armor repodata/repomd.xml
+    gpg --detach-sign --armor ../repodata/repomd.xml
   fi
 
   popd > /dev/null
