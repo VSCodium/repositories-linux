@@ -26,13 +26,9 @@ liquify() {
   FILES="$1"
   INPUT="$2"
   OUTPUT="${3:-"${INPUT}"}"
-  echo "INPUT: ${INPUT}"
-  echo "OUTPUT: ${OUTPUT}"
 
   for FILE in $FILES; do
-    echo "FILE: ${FILE}"
     TARGET_FILE=$( npx liquidjs --template "${FILE}" --context @./liquid.json )
-    echo "TARGET_FILE: ${TARGET_FILE}"
     TARGET_DIR=$( dirname "${TARGET_FILE}" )
 
     mkdir -p "${OUTPUT}/${TARGET_DIR}"

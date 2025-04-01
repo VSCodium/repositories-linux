@@ -28,7 +28,7 @@ get_install_files() {
       LOCAL_FILE="${REMOTE_FILE}"
 
       if [ ! -f "${LOCAL_FILE}" ]; then
-        echo "Getting RPM: ${REMOTE_FILE} as ${LOCAL_FILE}"
+        echo "Getting RPM: ${REMOTE_FILE}"
 
         curl --silent --fail -L "https://${GH_HOST}/${GH_REPOSITORY}/releases/download/${TAG}/${REMOTE_FILE}" -o "${LOCAL_FILE}"
       fi
@@ -49,8 +49,7 @@ get_install_files() {
       LOCAL_FILE="${REMOTE_FILE}"
 
       if [ ! -f "${LOCAL_FILE}" ]; then
-        echo "Getting DEB: ${REMOTE_FILE} as ${LOCAL_FILE}"
-        exit 1
+        echo "Getting DEB: ${REMOTE_FILE}"
 
         curl --silent --fail -L "https://${GH_HOST}/${GH_REPOSITORY}/releases/download/${TAG}/${REMOTE_FILE}" -o "${LOCAL_FILE}"
       fi
