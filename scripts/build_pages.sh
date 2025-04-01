@@ -47,4 +47,4 @@ liquify "header.html" "pages" "_components"
 
 npx marked-it-cli _pages --output=_site --header-file=_components/header.html --footer-file=pages/footer.html
 
-cp assets/* _site
+cp -r assets/* _site
