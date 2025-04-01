@@ -5,9 +5,12 @@ on:
   workflow_dispatch:
 
 env:
+  GH_REPOSITORIES: VSCodium/vscodium VSCodium/vscodium-insiders
   PACKAGE_NAME: codium
   PROJECT_NAME: VSCodium
-  REPO_ARCH: amd64 arm64 armhf
+  R2_BUCKET_NAME: vscodium-repo
+  REPO_ARCH_DEB: amd64 arm64 armhf
+  REPO_ARCH_RPM: x86_64 aarch64 armv7hl
   REPO_NAME: vscodium
   REPO_URL: https://repo.vscodium.dev
 
@@ -54,23 +57,17 @@ jobs:
       - name: Build repositories
         env:
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-        run: |
-          ./scripts/build_repos.sh
-          mv pkgs/* _site
+        run: ./scripts/build_repos.sh
 
-      # - name: Deploy
-      #   uses: cloudflare/wrangler-action@v3
-      #   with:
-      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      #     command: pages deploy _site --project-name=vscodium-repo
-      - name: Compress site.tar.gz
-        run: |
-          tar -czf site.tar.gz _site
+      - name: Upload packages
+        run: ./script/upload_r2.sh
 
-      - name: Upload site.tar.gz
-        uses: actions/upload-artifact@v4
+      - name: Move repositories
+        run: mv pkgs/* _site
+
+      - name: Deploy site
+        uses: cloudflare/wrangler-action@v3
         with:
-          name: site
-          path: ./site.tar.gz
-          retention-days: 1
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=vscodium-repo

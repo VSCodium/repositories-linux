@@ -18,7 +18,7 @@ curl --output-dir /etc/apt/keyrings -LO {{ repo_url }}/{{ repo_name }}.gpg
 Add the `.list` file:
 
 ```sh
-echo "deb [arch={{ repo_arch | replace: " ", "," }} signed-by=/etc/apt/keyrings/{{ repo_name }}.gpg] {{ site.url }}/deb {{ repo_name }} main" \
+echo "deb [arch={{ repo_arch_deb | replace: " ", "," }} signed-by=/etc/apt/keyrings/{{ repo_name }}.gpg] {{ site.url }}/deb {{ repo_name }} main" \
   | sudo tee /etc/apt/sources.list.d/{{ repo_name }}.list
 
 curl --output-dir /etc/apt/sources.list.d -LO {{ repo_url }}/{{ repo_name }}.list
