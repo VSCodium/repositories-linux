@@ -34,13 +34,17 @@ jobs:
       - name: Build pages
         run: ./scripts/build_pages.sh
 
+      - name: Configure GPG
+        run: |
+          echo GNUPGHOME="$(mktemp -d /tmp/pgpkeys-XXXXXX)" >> $GITHUB_ENV
+
       - name: Import GPG key
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v5
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
 
-      - name: Confirm GPG Key loaded
+      - name: Confirm GPG key
         run: |
           gpg --list-keys
           echo "${{ steps.import_gpg.outputs.fingerprint }}"
