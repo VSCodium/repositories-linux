@@ -1,0 +1,58 @@
+name: Build
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+env:
+  PACKAGE_NAME: codium
+  REPO_ARCH: amd64 arm64 armhf
+  REPO_TITLE: VSCodium
+  REPO_URL=: https://repo.vscodium.dev
+
+jobs:
+  build:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          until sudo apt update
+          do
+            sleep 1
+          done
+          sudo apt install -y jq createrepo-c coreutils gnupg2 dpkg-dev reprepro
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.18.3'
+
+      - name: Build pages
+        run: ./scripts/build_pages.sh
+
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+
+      - name: Confirm GPG Key loaded
+        run: |
+          gpg --list-keys
+          echo "${{ steps.import_gpg.outputs.fingerprint }}"
+
+      - name: Build repositories
+        env:
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+        run: |
+          ./scripts/build_repos.sh
+          mv pkgs/* _site
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=vscodium

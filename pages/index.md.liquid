@@ -1,0 +1,62 @@
+# [{{ project_name }} Repositories]({{ repo_url }})
+
+## Install on Debian (.deb)
+
+### GPG Key
+
+Add the GPG key of the repository:
+
+```sh
+wget -qO- {{ repo_url }}/{{ repo_name }}.gpg \
+  | sudo tee /etc/apt/keyrings/{{ repo_name }}.gpg
+
+curl --output-dir /etc/apt/keyrings -LO {{ repo_url }}/{{ repo_name }}.gpg
+```
+
+### Repository
+
+Add the `.list` file:
+
+```sh
+echo "deb [arch={{ repo_arch | replace: " ", "," }} signed-by=/etc/apt/keyrings/{{ repo_name }}.gpg] {{ site.url }}/deb {{ repo_name }} main" \
+  | sudo tee /etc/apt/sources.list.d/{{ repo_name }}.list
+
+curl --output-dir /etc/apt/sources.list.d -LO {{ repo_url }}/{{ repo_name }}.list
+```
+
+### Install
+
+Update then install {{ project_name }}:
+
+```sh
+sudo apt update && sudo apt install {{ package_name }}
+```
+
+## Install Fedora/Suse (.rpm)
+
+### Repository
+
+Add the `.repo` file:
+
+```sh
+cd /etc/yum.repos.d ;\
+curl {{ repo_url }}/{{ repo_name }}.repo -LO
+
+curl --output-dir /etc/yum.repos.d -LO {{ repo_url }}/{{ repo_name }}.repo
+```
+
+### Install
+
+Install {{ project_name }}:
+
+#### Fedora/RHEL
+
+```sh
+sudo dnf install {{ package_name }}
+```
+
+#### OpenSuse/Suse
+
+```sh
+sudo zypper in {{ package_name }}
+```
