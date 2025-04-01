@@ -60,6 +60,8 @@ jobs:
         run: ./scripts/build_repos.sh
 
       - name: Upload packages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: ./scripts/upload_r2.sh
 
       - name: Move repositories
