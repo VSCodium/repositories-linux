@@ -24,7 +24,7 @@ jobs:
           do
             sleep 1
           done
-          sudo apt install -y jq createrepo-c coreutils gnupg2 dpkg-dev reprepro
+          sudo apt install -y jq createrepo-c coreutils gnupg2 dpkg-dev reprepro expect
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
