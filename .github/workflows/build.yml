@@ -58,9 +58,19 @@ jobs:
           ./scripts/build_repos.sh
           mv pkgs/* _site
 
-      - name: Deploy
-        uses: cloudflare/wrangler-action@v3
+      # - name: Deploy
+      #   uses: cloudflare/wrangler-action@v3
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     command: pages deploy _site --project-name=vscodium-repo
+      - name: Compress site.tar.gz
+        run: |
+          tar -czf site.tar.gz _site
+
+      - name: Upload site.tar.gz
+        uses: actions/upload-artifact@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy _site --project-name=vscodium-repo
+          name: site
+          path: ./site.tar.gz
+          retention-days: 1
