@@ -102,7 +102,7 @@ if (( "${GOT_DEB}" )); then
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
     echo "Signing"
 
-    pushd pkgs/deb/dist/${REPO_NAME} > /dev/null
+    pushd pkgs/deb/dists/${REPO_NAME} > /dev/null
 
     gpg --detach-sign --armor --sign > Release.gpg < Release
     gpg --detach-sign --armor --sign --clearsign > InRelease < Release
