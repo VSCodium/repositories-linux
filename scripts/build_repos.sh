@@ -68,20 +68,17 @@ if (( "${GOT_RPM}" )); then
 
   pushd pkgs/rpm > /dev/null
 
-  if [[ -n "${GPG_FINGERPRINT}" ]]; then
-    echo "Signing"
+  # if [[ -n "${GPG_FINGERPRINT}" ]]; then
+  #   echo "Signing"
 
-    gpg --list-keys
-    expect -c "spawn gpg2 --edit-key ${GPG_FINGERPRINT} trust quit; send \"5\ry\r\"; expect eof"
-    gpg --list-keys
-
-    rpm --define "%_signature gpg" --define "%_gpg_name ${GPG_FINGERPRINT}" --addsign *rpm
-  fi
+  #   rpm --define "%_signature gpg" --define "%_gpg_name ${GPG_FINGERPRINT}" --addsign *rpm
+  # fi
 
   createrepo_c --database --compatibility .
 
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
-    echo "Signing the Repo Metadata"
+    echo "Signing the repo Metadata"
+
     gpg --detach-sign --armor repodata/repomd.xml
   fi
 
@@ -100,6 +97,8 @@ if (( "${GOT_DEB}" )); then
   reprepro --verbose --basedir pkgs/deb includedeb "${REPO_NAME}" tmp/*deb
 
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
+    echo "Signing"
+
     pushd pkgs/deb > /dev/null
 
     gpg --detach-sign --armor --sign > Release.gpg < Release

@@ -24,7 +24,7 @@ jobs:
           do
             sleep 1
           done
-          sudo apt install -y jq createrepo-c coreutils gnupg2 dpkg-dev reprepro expect
+          sudo apt install -y jq createrepo-c coreutils gnupg2 dpkg-dev reprepro
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -34,9 +34,9 @@ jobs:
       - name: Build pages
         run: ./scripts/build_pages.sh
 
-      - name: Configure GPG
-        run: |
-          echo GNUPGHOME="$(mktemp -d /tmp/pgpkeys-XXXXXX)" >> $GITHUB_ENV
+      # - name: Configure GPG
+      #   run: |
+      #     echo GNUPGHOME="$(mktemp -d /tmp/pgpkeys-XXXXXX)" >> $GITHUB_ENV
 
       - name: Import GPG key
         id: import_gpg
