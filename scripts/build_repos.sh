@@ -71,8 +71,7 @@ if (( "${GOT_RPM}" )); then
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
     echo "Signing"
 
-    GPG_TTY=""
-    export GPG_TTY
+    expect -c "spawn gpg2 --edit-key ${GPG_FINGERPRINT} trust quit; send \"5\ry\r\"; expect eof"
 
     rpm --define "%_signature gpg" --define "%_gpg_name ${GPG_FINGERPRINT}" --addsign *rpm
   fi
