@@ -6,9 +6,10 @@ on:
 
 env:
   PACKAGE_NAME: codium
+  PROJECT_NAME: VSCodium
   REPO_ARCH: amd64 arm64 armhf
-  REPO_TITLE: VSCodium
-  REPO_URL=: https://repo.vscodium.dev
+  REPO_NAME: vscodium
+  REPO_URL: https://repo.vscodium.dev
 
 jobs:
   build:

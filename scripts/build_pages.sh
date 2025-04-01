@@ -2,7 +2,9 @@
 
 set -e
 
-. ./.env
+if [[ "${CI}" != "true" ]]; then
+  . ./.env
+fi
 
 npm install -g liquidjs marked-it-cli
 
