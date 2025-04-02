@@ -10,7 +10,7 @@ Add the GPG key of the repository:
 wget -qO- {{ repo_url }}/{{ repo_name }}.gpg \
   | sudo tee /etc/apt/keyrings/{{ repo_name }}.gpg
 
-curl --output-dir /etc/apt/keyrings -LO {{ repo_url }}/{{ repo_name }}.gpg
+sudo curl --output-dir /etc/apt/keyrings -LO {{ repo_url }}/{{ repo_name }}.gpg
 ```
 
 ### Repository
@@ -21,7 +21,7 @@ Add the `.list` file:
 echo "deb [arch={{ repo_arch_deb | replace: " ", "," }} signed-by=/etc/apt/keyrings/{{ repo_name }}.gpg] {{ site.url }}/deb {{ repo_name }} main" \
   | sudo tee /etc/apt/sources.list.d/{{ repo_name }}.list
 
-curl --output-dir /etc/apt/sources.list.d -LO {{ repo_url }}/{{ repo_name }}.list
+sudo curl --output-dir /etc/apt/sources.list.d -LO {{ repo_url }}/{{ repo_name }}.list
 ```
 
 ### Install
@@ -39,10 +39,7 @@ sudo apt update && sudo apt install {{ package_name }}
 Add the `.repo` file:
 
 ```sh
-cd /etc/yum.repos.d ;\
-curl {{ repo_url }}/{{ repo_name }}.repo -LO
-
-curl --output-dir /etc/yum.repos.d -LO {{ repo_url }}/{{ repo_name }}.repo
+sudo curl --output-dir /etc/yum.repos.d -LO {{ repo_url }}/{{ repo_name }}.repo
 ```
 
 ### Install

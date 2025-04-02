@@ -67,6 +67,17 @@ jobs:
       - name: Move repositories
         run: mv pkgs/* _site
 
+      - name: Compress site.tar.gz
+        run: |
+          tar -czf site.tar.gz _site
+
+      - name: Upload site.tar.gz
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: ./site.tar.gz
+          retention-days: 1
+
       - name: Deploy site
         uses: cloudflare/wrangler-action@v3
         with:
