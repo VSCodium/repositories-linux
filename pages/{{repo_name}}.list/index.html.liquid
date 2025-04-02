@@ -1,1 +1,1 @@
-deb [arch={{ repo_arch_deb | replace: " ", "," }} signed-by=/etc/apt/keyrings/{{ repo_name }}.gpg] {{ site_url }}/deb vscodium main
+deb [arch={{ repo_arch_deb | replace: " ", "," }} signed-by=/etc/apt/keyrings/{{ repo_name }}.gpg] {{ repo_url }}/deb vscodium main
