@@ -83,7 +83,7 @@ export GPG_TTY
 if [[ "${GOT_RPM}" == "yes" ]]; then
   echo "== Scanning RPM packages and creating the repository"
 
-  pushd pkgs/rpm/pool > /dev/null
+  pushd pkgs/rpm > /dev/null
 
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
     echo "Signing"
@@ -91,12 +91,12 @@ if [[ "${GOT_RPM}" == "yes" ]]; then
     rpm --define "%_signature gpg" --define "%_gpg_name ${GPG_FINGERPRINT}" --addsign *rpm
   fi
 
-  createrepo_c --database --compatibility --outputdir=.. .
+  createrepo_c --database --compatibility .
 
   if [[ -n "${GPG_FINGERPRINT}" ]]; then
     echo "Signing the repo Metadata"
 
-    gpg --detach-sign --armor ../repodata/repomd.xml
+    gpg --detach-sign --armor repodata/repomd.xml
   fi
 
   popd > /dev/null
