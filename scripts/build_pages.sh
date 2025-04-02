@@ -50,5 +50,5 @@ npx marked-it-cli _pages --output=_site --header-file=_components/header.html --
 
 cp -r assets/* _site
 
-find assets -type f -print0 | xargs -0 ls -ld
-find _site -type f -print0 | xargs -0 ls -ld
+# find assets -type f -print0 | xargs -0 ls -ld
+# find _site -type f -print0 | xargs -0 ls -ld

@@ -11,6 +11,10 @@ wget -qO- {{ repo_url }}/{{ repo_name }}.gpg \
   | sudo tee /etc/apt/keyrings/{{ repo_name }}.gpg
 
 sudo curl --output-dir /etc/apt/keyrings -LO {{ repo_url }}/{{ repo_name }}.gpg
+
+wget -qO - {{ repo_url }}/{{ repo_name }}.gpg \
+  | gpg --dearmor \
+  | sudo dd of=/usr/share/keyrings/{{ repo_name }}.gpg
 ```
 
 ### Repository
