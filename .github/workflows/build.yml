@@ -34,9 +34,6 @@ jobs:
         with:
           node-version: '20.18.3'
 
-      - name: Build pages
-        run: ./scripts/build_pages.sh
-
       - name: Configure GPG
         run: |
           echo GNUPGHOME="$(mktemp -d /tmp/pgpkeys-XXXXXX)" >> $GITHUB_ENV
@@ -53,6 +50,11 @@ jobs:
         run: |
           gpg --list-keys
           echo "${{ steps.import_gpg.outputs.fingerprint }}"
+
+      - name: Build pages
+        env:
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+        run: ./scripts/build_pages.sh
 
       - name: Build repositories
         env:

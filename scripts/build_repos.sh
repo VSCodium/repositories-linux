@@ -113,16 +113,16 @@ if [[ "${GOT_DEB}" == "yes" ]]; then
 
   reprepro --verbose --basedir pkgs/deb includedeb "${REPO_NAME}" tmp/*deb
 
-  if [[ -n "${GPG_FINGERPRINT}" ]]; then
-    echo "Signing"
+  # if [[ -n "${GPG_FINGERPRINT}" ]]; then
+  #   echo "Signing"
 
-    pushd pkgs/deb/dists/${REPO_NAME} > /dev/null
+  #   pushd pkgs/deb/dists/${REPO_NAME} > /dev/null
 
-    gpg --detach-sign --armor --sign > Release.gpg < Release
-    gpg --detach-sign --armor --sign --clearsign > InRelease < Release
+  #   gpg --detach-sign --armor --sign > Release.gpg < Release
+  #   gpg --detach-sign --armor --sign --clearsign > InRelease < Release
 
-    popd > /dev/null
-  fi
+  #   popd > /dev/null
+  # fi
 
   echo "DEB repository built"
 fi

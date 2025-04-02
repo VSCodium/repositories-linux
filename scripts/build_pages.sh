@@ -12,6 +12,7 @@ rm -rf _site _pages _components
 
 # generate context.json
 JSON_DATA=$( jq \
+  --arg gpg_fingerprint "${GPG_FINGERPRINT}" \
   --arg package_name    "${PACKAGE_NAME}" \
   --arg project_name    "${PROJECT_NAME}" \
   --arg r2_bucket_name  "${R2_BUCKET_NAME}" \
