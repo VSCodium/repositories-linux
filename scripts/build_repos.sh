@@ -25,8 +25,8 @@ get_install_files() {
         if [[ -n "${FILE}" ]]; then
           GOT_RPM="yes"
 
-          mkdir -p pkgs/rpm/pool
-          pushd pkgs/rpm/pool > /dev/null
+          mkdir -p pkgs/rpm
+          pushd pkgs/rpm > /dev/null
 
           if [[ ! -f "${FILE}" ]]; then
             echo "Getting RPM: ${FILE}"
