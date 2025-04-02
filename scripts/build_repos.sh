@@ -4,8 +4,8 @@ set -e
 
 GH_HOST="${GH_HOST:-github.com}"
 GH_REPOSITORIES="${GH_REPOSITORIES:-VSCodium/vscodium VSCodium/vscodium-insiders}"
-REPO_ARCH_DEB="${REPO_ARCH:-amd64 arm64 armhf}"
-REPO_ARCH_RPM="${REPO_ARCH:-x86_64 aarch64 armv7hl}"
+REPO_ARCH_DEB="${REPO_ARCH_DEB:-amd64 arm64 armhf}"
+REPO_ARCH_RPM="${REPO_ARCH_RPM:-x86_64 aarch64 armv7hl}"
 REPO_NAME="${REPO_NAME:-vscodium}"
 
 GOT_DEB="no"
