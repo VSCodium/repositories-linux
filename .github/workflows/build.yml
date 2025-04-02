@@ -10,8 +10,10 @@ env:
   PACKAGE_NAME: codium
   PROJECT_NAME: VSCodium
   R2_BUCKET_NAME: vscodium-repo
-  REPO_ARCH_DEB: amd64 arm64 armhf
-  REPO_ARCH_RPM: x86_64 aarch64 armv7hl
+  # REPO_ARCH_DEB: amd64 arm64 armhf
+  # REPO_ARCH_RPM: x86_64 aarch64 armv7hl
+  REPO_ARCH_DEB: arm64
+  REPO_ARCH_RPM: aarch64
   REPO_NAME: vscodium
   REPO_URL: https://repo.vscodium.dev
 
