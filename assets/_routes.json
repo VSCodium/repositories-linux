@@ -1,8 +1,0 @@
-{
-  "version": 1,
-  "include": [
-    "/deb/pool/*",
-    "/rpm/pool/*"
-  ],
-  "exclude": []
-}
