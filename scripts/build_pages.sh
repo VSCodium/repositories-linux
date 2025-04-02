@@ -19,7 +19,7 @@ JSON_DATA=$( jq \
   --arg repo_arch_deb   "${REPO_ARCH_DEB}" \
   --arg repo_name       "${REPO_NAME}" \
   --arg repo_url        "${REPO_URL}" \
-  '. | .package_name=$package_name | .project_name=$project_name | .r2_bucket_name=$r2_bucket_name | .repo_arch_deb=$repo_arch_deb | .repo_name=$repo_name | .repo_url=$repo_url' \
+  '. | .gpg_fingerprint=$gpg_fingerprint | .package_name=$package_name | .project_name=$project_name | .r2_bucket_name=$r2_bucket_name | .repo_arch_deb=$repo_arch_deb | .repo_name=$repo_name | .repo_url=$repo_url' \
   <<<'{}' )
 
 echo "${JSON_DATA}" > "./liquid.json"
