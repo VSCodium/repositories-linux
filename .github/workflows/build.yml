@@ -68,7 +68,9 @@ jobs:
         run: ./scripts/upload_r2.sh
 
       - name: Move repositories
-        run: mv pkgs/* _site
+        run: |
+          mv pkgs/* _site
+          find _site -type f -print0 | xargs -0 ls -ld
 
       - name: Compress site.tar.gz
         run: |
