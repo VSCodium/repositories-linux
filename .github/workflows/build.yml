@@ -5,7 +5,8 @@ on:
   workflow_dispatch:
 
 env:
-  GH_REPOSITORIES: VSCodium/vscodium VSCodium/vscodium-insiders
+  # GH_REPOSITORIES: VSCodium/vscodium VSCodium/vscodium-insiders
+  GH_REPOSITORIES: VSCodium/vscodium
   PACKAGE_NAME: codium
   PROJECT_NAME: VSCodium
   R2_BUCKET_NAME: vscodium-repo
