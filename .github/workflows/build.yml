@@ -65,6 +65,7 @@ jobs:
       - name: Upload packages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_KV_NAMESPACE_ID: ${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}
         run: ./scripts/upload_r2.sh
 
       - name: Move repositories
@@ -92,4 +93,5 @@ jobs:
       - name: Clean packages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_KV_NAMESPACE_ID: ${{ secrets.CLOUDFLARE_KV_NAMESPACE_ID }}
         run: ./scripts/clean_r2.sh
