@@ -12,7 +12,9 @@ for NAME in ${OLD_FILES}; do
 done
 
 # Remove any double spaces that might result from the removal
-ALL_FILES="${ALL_FILES//  / }"
+while [[ "${ALL_FILES}" =~ "  " ]]; do
+  ALL_FILES="${ALL_FILES//  / }"
+done
 # Trim leading and trailing spaces
 ALL_FILES="${ALL_FILES#"${ALL_FILES%%[![:space:]]*}"}"
 ALL_FILES="${ALL_FILES%"${ALL_FILES##*[![:space:]]}"}"
