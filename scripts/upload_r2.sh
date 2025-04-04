@@ -10,6 +10,8 @@ find pkgs -name '*.rpm' -exec bash -c 'mv "$0" "r2/$( basename "$0" )"' {} \;
 ALL_FILES=$( npx wrangler kv key get --remote --namespace-id="${CLOUDFLARE_KV_NAMESPACE_ID}" "ALL_FILES" )
 OLD_FILES="${ALL_FILES}"
 
+echo "ALL_FILES: ${ALL_FILES}"
+
 for FILE in r2/*; do
   if [[ -f "${FILE}" ]]; then
     NAME=$( basename "${FILE}" )
@@ -23,6 +25,8 @@ for FILE in r2/*; do
     fi
   fi
 done
+
+echo "ALL_FILES: ${ALL_FILES}"
 
 npx wrangler kv key put --remote --namespace-id="${CLOUDFLARE_KV_NAMESPACE_ID}" "ALL_FILES" "${ALL_FILES}"
 
