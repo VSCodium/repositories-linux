@@ -17,7 +17,7 @@ for FILE in r2/*; do
     npx wrangler r2 object put --remote --file "${FILE}" "${R2_BUCKET_NAME}/${NAME}" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g'
 
     if [[ "${ALL_FILES}" == *"${NAME}"* ]]; then
-      OLD_FILES="${ALL_FILES//${NAME}/}"
+      OLD_FILES="${OLD_FILES//${NAME}/}"
     else
       ALL_FILES="${ALL_FILES} ${NAME}"
     fi
