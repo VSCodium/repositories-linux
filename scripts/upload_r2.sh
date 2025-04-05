@@ -2,10 +2,27 @@
 
 set -e
 
+shopt -s globstar
+
 mkdir -p r2
 
-find pkgs -name '*.deb' -exec bash -c 'mv "$0" "r2/$( basename "$0" )"' {} \;
-find pkgs -name '*.rpm' -exec bash -c 'mv "$0" "r2/$( basename "$0" )"' {} \;
+REDIRECTS=""
+
+pushd pkgs > /dev/null
+
+for FILE in **/*.[dr][ep][bm]; do
+  if [[ "${FILE}" == *.deb || "${FILE}" == *.rpm ]]; then
+    NAME=$( basename "${FILE}" )
+
+    REDIRECTS="${REDIRECTS}"$'\n'"${FILE} ${R2_BUCKET_URL}/${NAME} 302"
+
+    mv "${FILE}" ../r2
+  fi
+done
+
+popd > /dev/null
+
+echo "${REDIRECTS}" > _site/_redirects
 
 ALL_FILES=$( npx wrangler kv key get --remote --namespace-id="${CLOUDFLARE_KV_NAMESPACE_ID}" "ALL_FILES" )
 OLD_FILES="${ALL_FILES}"
