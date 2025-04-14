@@ -8,6 +8,7 @@ on:
 env:
   GH_REPOSITORIES: VSCodium/vscodium VSCodium/vscodium-insiders
   PACKAGE_NAME: codium
+  PAGE_NAME: vscodium-repo
   PROJECT_NAME: VSCodium
   PROJECT_URL: https://github.com/VSCodium/vscodium
   R2_BUCKET_NAME: vscodium-repo
@@ -86,11 +87,10 @@ jobs:
           retention-days: 1
 
       - name: Deploy site
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy _site --project-name=vscodium-repo
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: ./scripts/deploy.sh
 
       - name: Clean packages
         env:

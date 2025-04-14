@@ -14,6 +14,7 @@ This project can be forked and reconfigured to generate repositories from any pa
 
 - `GH_REPOSITORIES` (`VSCodium/vscodium VSCodium/vscodium-insiders`)
 - `PACKAGE_NAME` (`codium`)
+- `PAGE_NAME` (`vscodium-repo`)
 - `PROJECT_NAME` (`VSCodium`)
 - `PROJECT_URL` (`https://github.com/VSCodium/vscodium`)
 - `R2_BUCKET_NAME` (`vscodium-repo`)
