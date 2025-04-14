@@ -4,7 +4,16 @@ set -e
 
 npx wrangler pages deploy _site --project-name="${PAGE_NAME}"
 
-DEPLOYMENTS=$( npx wrangler pages deployment list "${PAGE_NAME}" --json )
+DEPLOYMENTS=$( curl -s \
+  -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+  "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PAGE_NAME}/deployments" )
+
+echo "${DEPLOYMENTS}" | jq -e '.success' >/dev/null || {
+    echo "Failed to fetch deployments"
+    echo "Error: $(echo "${DEPLOYMENTS}" | jq -r '.errors[].message')"
+    exit 1
+}
+
 readarray -t DEPLOYMENTS_TO_DELETE < <( echo "${DEPLOYMENTS}" | jq -r '.result | sort_by(.created_on) | reverse | .[3:] | .[].id' )
 
 echo "Found ${#DEPLOYMENTS_TO_DELETE[@]} deployments to delete"
