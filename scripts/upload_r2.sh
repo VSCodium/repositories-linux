@@ -34,7 +34,21 @@ for FILE in r2/*; do
   if [[ -f "${FILE}" ]]; then
     NAME=$( basename "${FILE}" )
 
-    npx wrangler r2 object put --remote --file "${FILE}" "${R2_BUCKET_NAME}/${NAME}" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g'
+    # Run wrangler and mask sensitive output if needed
+    OUTPUT=$( npx wrangler r2 object put --remote --file "${FILE}" "${R2_BUCKET_NAME}/${NAME}" 2>&1 )
+    MASKED_OUTPUT=$( echo "${OUTPUT}" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g' )
+
+    echo "${MASKED_OUTPUT}"
+
+    # Look for log file
+    LOG_FILE=$(echo "$MASKED_OUTPUT" | sed -n 's/.*Logs were written to "\([^"]*\)".*/\1/p')
+
+    if [[ -n "$LOG_FILE" ]]; then
+      echo "==== Log file: $LOG_FILE ===="
+      cat "$LOG_FILE" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g'
+
+      return 1
+    fi
 
     if [[ "${ALL_FILES}" == *"${NAME}"* ]]; then
       OLD_FILES="${OLD_FILES//${NAME}/}"
