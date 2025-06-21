@@ -29,6 +29,8 @@ OLD_FILES="${ALL_FILES}"
 
 echo "ALL_FILES: ${ALL_FILES}"
 
+set +e
+
 for FILE in r2/*; do
   if [[ -f "${FILE}" ]]; then
     NAME=$( basename "${FILE}" )
@@ -56,6 +58,8 @@ for FILE in r2/*; do
     fi
   fi
 done
+
+set -e
 
 echo "ALL_FILES: ${ALL_FILES}"
 
