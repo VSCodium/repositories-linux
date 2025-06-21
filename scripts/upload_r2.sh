@@ -35,21 +35,38 @@ for FILE in r2/*; do
   if [[ -f "${FILE}" ]]; then
     NAME=$( basename "${FILE}" )
 
-    # Run wrangler and mask sensitive output if needed
-    OUTPUT=$( npx wrangler r2 object put --remote --file "${FILE}" "${R2_BUCKET_NAME}/${NAME}" 2>&1 )
-    MASKED_OUTPUT=$( echo "${OUTPUT}" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g' )
+    for i in {1..5}; do # try 5 times
+      echo "$( date +"%H:%M:%S" ) @ Uploading ${NAME}..."
 
-    echo "${MASKED_OUTPUT}"
+      # Run wrangler and mask sensitive output if needed
+      OUTPUT=$( npx wrangler r2 object put --remote --file "${FILE}" "${R2_BUCKET_NAME}/${NAME}" 2>&1 )
+      MASKED_OUTPUT=$( echo "${OUTPUT}" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g' )
 
-    # Look for log file
-    LOG_FILE=$(echo "$MASKED_OUTPUT" | sed -n 's/.*Logs were written to "\([^"]*\)".*/\1/p')
+      echo "${MASKED_OUTPUT}"
 
-    if [[ -n "$LOG_FILE" ]]; then
-      echo "==== Log file: $LOG_FILE ===="
-      cat "$LOG_FILE" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g'
+      # Look for log file
+      # LOG_FILE=$(echo "$MASKED_OUTPUT" | sed -n 's/.*Logs were written to "\([^"]*\)".*/\1/p')
 
-      return 1
-    fi
+      # if [[ -n "$LOG_FILE" ]]; then
+      #   echo "==== Log file: $LOG_FILE ===="
+      #   cat "$LOG_FILE" | sed -E 's/[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}/****/g'
+
+      #   exit 1
+      # fi
+
+      if [[ "${MASKED_OUTPUT}" != *"ERROR"* ]]; then
+        break
+      fi
+
+      if [[ $i == 5 ]]; then
+        echo "$( date +"%H:%M:%S" ) @ Upload ${NAME} failed too many times" >&2
+        exit 1
+      fi
+
+      echo "$( date +"%H:%M:%S" ) @ Upload ${NAME} failed $i, trying again..."
+
+      sleep $(( 15 * (i + 1)))
+    done
 
     if [[ "${ALL_FILES}" == *"${NAME}"* ]]; then
       OLD_FILES="${OLD_FILES//${NAME}/}"
