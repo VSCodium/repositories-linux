@@ -119,3 +119,8 @@ if [[ "${GOT_DEB}" == "yes" ]]; then
 
   echo "DEB repository built"
 fi
+
+# Add package files to liquidjs context file
+PACKAGE_LIST=$( find . -type f \( -name "*.deb" -o -name "*.rpm" \) -exec basename {} \; | jq -Rsc 'split("\n")[:-1]' )
+TMP_JSON=$( jq --argjson packages "${PACKAGE_LIST}" '.packages = $packages' "./liquid.json" )
+echo "${TMP_JSON}" > "./liquid.json"
