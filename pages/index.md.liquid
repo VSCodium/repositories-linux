@@ -2,6 +2,13 @@
 
 ## Install on Debian (.deb)
 
+### Supported Architectures
+
+{% assign architectures = repo_arch_deb | split: " " %}
+{% for architecture in architectures %}
+- {{ architecture }}
+{% endfor %}
+
 ### GPG Key
 
 Add the GPG key of the repository:
@@ -39,6 +46,13 @@ sudo apt update && sudo apt install {{ package_name }}
 ```
 
 ## Install Fedora/Suse (.rpm)
+
+### Supported Architectures
+
+{% assign architectures = repo_arch_rpm | split: " " %}
+{% for architecture in architectures %}
+- {{ architecture }}
+{% endfor %}
 
 ### Repository
 
