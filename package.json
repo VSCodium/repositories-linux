@@ -1,0 +1,30 @@
+{
+	"name": "repositories-linux",
+	"description": "Repositories Linux",
+	"version": "1.0.0",
+	"private": true,
+	"author": {
+		"name": "Baptiste Augrain",
+		"email": "daiyam@zokugun.org"
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/VSCodium/repositories-linux",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/VSCodium/repositories-linux.git"
+	},
+	"bugs": {
+		"url": "https://github.com/VSCodium/repositories-linux/issues"
+	},
+	"scripts": {
+		"build:pages": "./scripts/setup.sh; ./scripts/build_pages.sh"
+	},
+	"dependencies": {
+		"@tailwindcss/cli": "^4.1.12",
+		"@tailwindcss/typography": "^0.5.16",
+		"liquidjs": "^10.21.1",
+		"marked-it-cli": "^2.4.5",
+		"tailwindcss": "^4.1.12",
+		"wrangler": "^4.30.0"
+	}
+}

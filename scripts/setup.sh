@@ -6,7 +6,7 @@ if [[ "${CI}" != "true" ]]; then
   . ./.env
 fi
 
-npm install -g liquidjs marked-it-cli wrangler
+npm ci
 
 rm -rf _site _pages _components
 

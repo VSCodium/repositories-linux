@@ -6,10 +6,9 @@ set -e
 
 liquify "{{repo_name}}.list/index.html {{repo_name}}.sources/index.html {{repo_name}}.repo/index.html" "pages" "_site"
 
-liquify "index.md" "pages" "_pages"
-liquify "header.html" "pages" "_components"
+liquify "index.html" "pages" "_site"
 
-npx marked-it-cli _pages --output=_site --header-file=_components/header.html --footer-file=pages/footer.html
+npx @tailwindcss/cli --input ./pages/main.css --output ./_site/main.css --minify
 
 cp -r assets/* _site
 
