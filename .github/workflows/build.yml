@@ -55,15 +55,18 @@ jobs:
           gpg --list-keys
           echo "${{ steps.import_gpg.outputs.fingerprint }}"
 
-      - name: Build pages
-        env:
-          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
-        run: ./scripts/build_pages.sh
+      - name: Setup
+        run: ./scripts/setup.sh
 
       - name: Build repositories
         env:
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
         run: ./scripts/build_repos.sh
+
+      - name: Build pages
+        env:
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+        run: ./scripts/build_pages.sh
 
       - name: Upload packages
         env:

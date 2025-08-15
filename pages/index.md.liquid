@@ -77,3 +77,9 @@ sudo dnf install {{ package_name }}
 ```sh
 sudo zypper in {{ package_name }}
 ```
+
+## Available Packages
+
+{% for package in packages %}
+- {{ package }}
+{% endfor %}

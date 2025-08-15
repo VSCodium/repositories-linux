@@ -2,13 +2,7 @@
 
 set -e
 
-if [[ "${CI}" != "true" ]]; then
-  . ./.env
-fi
-
-npm install -g liquidjs marked-it-cli wrangler
-
-rm -rf _site _pages _components
+PACKAGE_LIST=$( find . -type f \( -name "*.deb" -o -name "*.rpm" \) -exec basename {} \; | jq -Rsc 'split("\n")[:-1]' )
 
 # generate context.json
 JSON_DATA=$( jq \
@@ -22,7 +16,18 @@ JSON_DATA=$( jq \
   --arg repo_arch_rpm   "${REPO_ARCH_RPM}" \
   --arg repo_name       "${REPO_NAME}" \
   --arg repo_url        "${REPO_URL}" \
-  '. | .gpg_fingerprint=$gpg_fingerprint | .package_name=$package_name | .project_name=$project_name | .project_url=$project_url | .r2_bucket_name=$r2_bucket_name | .r2_bucket_url=$r2_bucket_url | .repo_arch_deb=$repo_arch_deb | .repo_arch_rpm=$repo_arch_rpm | .repo_name=$repo_name | .repo_url=$repo_url' \
+  --argjson packages    "${PACKAGE_LIST}" \
+  '. | .gpg_fingerprint=$gpg_fingerprint
+     | .package_name=$package_name
+     | .project_name=$project_name
+     | .project_url=$project_url
+     | .r2_bucket_name=$r2_bucket_name
+     | .r2_bucket_url=$r2_bucket_url
+     | .repo_arch_deb=$repo_arch_deb
+     | .repo_arch_rpm=$repo_arch_rpm
+     | .repo_name=$repo_name
+     | .repo_url=$repo_url
+     | .packages=$packages' \
   <<<'{}' )
 
 echo "${JSON_DATA}" > "./liquid.json"
