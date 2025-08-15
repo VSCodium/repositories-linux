@@ -56,6 +56,8 @@ jobs:
           echo "${{ steps.import_gpg.outputs.fingerprint }}"
 
       - name: Setup
+        env:
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
         run: ./scripts/setup.sh
 
       - name: Build repositories
@@ -64,8 +66,6 @@ jobs:
         run: ./scripts/build_repos.sh
 
       - name: Build pages
-        env:
-          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
         run: ./scripts/build_pages.sh
 
       - name: Upload packages
