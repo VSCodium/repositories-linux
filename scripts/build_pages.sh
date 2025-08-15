@@ -2,6 +2,8 @@
 
 set -e
 
+. ./utils.sh
+
 PACKAGE_LIST=$( find . -type f \( -name "*.deb" -o -name "*.rpm" \) -exec basename {} \; | jq -Rsc 'split("\n")[:-1]' )
 
 # generate context.json
@@ -31,23 +33,6 @@ JSON_DATA=$( jq \
   <<<'{}' )
 
 echo "${JSON_DATA}" > "./liquid.json"
-
-liquify() {
-  FILES="$1"
-  INPUT="$2"
-  OUTPUT="${3:-"${INPUT}"}"
-
-  for FILE in $FILES; do
-    TARGET_FILE=$( npx liquidjs --template "${FILE}" --context @./liquid.json )
-    TARGET_DIR=$( dirname "${TARGET_FILE}" )
-
-    mkdir -p "${OUTPUT}/${TARGET_DIR}"
-
-    npx liquidjs --template "@./${INPUT}/${FILE}.liquid" --context @./liquid.json > "./${OUTPUT}/${TARGET_FILE}"
-  done
-}
-
-liquify "distributions" "config/deb"
 
 liquify "{{repo_name}}.list/index.html {{repo_name}}.sources/index.html {{repo_name}}.repo/index.html" "pages" "_site"
 
