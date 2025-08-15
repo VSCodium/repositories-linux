@@ -2,7 +2,7 @@
 
 set -e
 
-. ./utils.sh
+. ./scripts/utils.sh
 
 GH_HOST="${GH_HOST:-github.com}"
 GH_REPOSITORIES="${GH_REPOSITORIES:-VSCodium/vscodium VSCodium/vscodium-insiders}"

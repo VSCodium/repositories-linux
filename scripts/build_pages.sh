@@ -2,7 +2,7 @@
 
 set -e
 
-. ./utils.sh
+. ./scripts/utils.sh
 
 PACKAGE_LIST=$( find . -type f \( -name "*.deb" -o -name "*.rpm" \) -exec basename {} \; | jq -Rsc 'split("\n")[:-1]' )
 
