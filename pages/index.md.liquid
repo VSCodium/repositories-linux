@@ -14,6 +14,16 @@ curl -fsSL {{ repo_url }}/{{ repo_name }}.gpg \
 
 ### Repository
 
+#### Debian 13 / Ubuntu 24.04 or newer
+
+Add the `.sources` file:
+
+```sh
+sudo curl --output-dir /etc/apt/sources.list.d -LO {{ repo_url }}/{{ repo_name }}.sources
+```
+
+#### Debian 12 / Ubuntu 23.10 or older
+
 Add the `.list` file:
 
 ```sh

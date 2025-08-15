@@ -43,7 +43,7 @@ liquify() {
 
 liquify "distributions" "config/deb"
 
-liquify "{{repo_name}}.list/index.html {{repo_name}}.repo/index.html" "pages" "_site"
+liquify "{{repo_name}}.list/index.html {{repo_name}}.sources/index.html {{repo_name}}.repo/index.html" "pages" "_site"
 
 liquify "index.md" "pages" "_pages"
 liquify "header.html" "pages" "_components"
