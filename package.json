@@ -25,6 +25,6 @@
 		"liquidjs": "^10.21.1",
 		"marked-it-cli": "^2.4.5",
 		"tailwindcss": "^4.1.12",
-		"wrangler": "^4.30.0"
+		"wrangler": "^4.59.0"
 	}
 }
