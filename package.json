@@ -24,7 +24,7 @@
 		"lint:all": "fixpack && npm audit && npm run ci:lint",
 		"prepare": "husky; fixpack || true",
 		"update:artifacts": "artifact update",
-		"update:ci": "PINACT_MIN_AGE=7 pinact run",
+		"update:ci": "PINACT_MIN_AGE=7 pinact run --update",
 		"update:deps": "taze"
 	},
 	"dependencies": {
