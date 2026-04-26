@@ -14,7 +14,7 @@
 		"url": "https://github.com/VSCodium/repositories-linux.git"
 	},
 	"bugs": {
-		"url": "https://github.com/VSCodium/repositories-linux/issues"
+		"url": "https://github.com/VSCodium/repositories-linux/discussions/categories/issue-triage"
 	},
 	"scripts": {
 		"audit:fix": "npm audit fix --min-release-age=0",
