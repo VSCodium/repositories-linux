@@ -1,0 +1,4 @@
+package.json:
+  - fixpack
+  - npm audit
+.github/**/*.yml: zizmor

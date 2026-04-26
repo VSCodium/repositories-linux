@@ -21,9 +21,13 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: publish
+    permissions: {}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
 
       - name: Install dependencies
         run: |
@@ -34,7 +38,7 @@ jobs:
           sudo apt install -y jq createrepo-c coreutils gnupg2 dpkg-dev reprepro
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '20.18.3'
 
@@ -44,7 +48,7 @@ jobs:
 
       - name: Import GPG key
         id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@e89d40939c28e39f97cf32126055eeae86ba74ec # v6.3.0
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
@@ -53,7 +57,9 @@ jobs:
       - name: Confirm GPG key
         run: |
           gpg --list-keys
-          echo "${{ steps.import_gpg.outputs.fingerprint }}"
+          echo "${GPG_FINGERPRINT}"
+        env:
+          GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
 
       - name: Setup
         env:
@@ -83,7 +89,7 @@ jobs:
           tar -czf site.tar.gz _site
 
       - name: Upload site.tar.gz
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: site
           path: ./site.tar.gz

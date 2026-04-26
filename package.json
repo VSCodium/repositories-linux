@@ -17,14 +17,30 @@
 		"url": "https://github.com/VSCodium/repositories-linux/issues"
 	},
 	"scripts": {
-		"build:pages": "./scripts/setup.sh; ./scripts/build_pages.sh"
+		"audit:fix": "npm audit fix --min-release-age=0",
+		"build:pages": "./scripts/setup.sh; ./scripts/build_pages.sh",
+		"ci:lint": "zizmor .",
+		"ci:lint:fix": "zizmor . --fix=all",
+		"lint:all": "fixpack && npm audit && npm run ci:lint",
+		"prepare": "husky; fixpack || true",
+		"update:artifacts": "artifact update",
+		"update:ci": "PINACT_MIN_AGE=7 pinact run",
+		"update:deps": "taze"
 	},
 	"dependencies": {
-		"@tailwindcss/cli": "^4.1.12",
-		"@tailwindcss/typography": "^0.5.16",
-		"liquidjs": "^10.21.1",
-		"marked-it-cli": "^2.4.5",
-		"tailwindcss": "^4.1.12",
-		"wrangler": "^4.59.0"
-	}
+		"@tailwindcss/cli": "4.2.4",
+		"@tailwindcss/typography": "0.5.19",
+		"liquidjs": "10.25.7",
+		"tailwindcss": "4.2.4",
+		"wrangler": "4.85.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "19.8.1",
+		"@commitlint/config-conventional": "19.8.1",
+		"fixpack": "4.0.0",
+		"husky": "9.1.7",
+		"lint-staged": "16.4.0",
+		"taze": "19.11.0"
+	},
+	"keywords": []
 }
