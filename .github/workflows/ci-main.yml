@@ -1,9 +1,9 @@
-name: "CI - Master: Build & Lint"
+name: "CI - Main: Build & Lint"
 
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - "**/*.md"
 
@@ -36,10 +36,6 @@ jobs:
       - name: Build
         run: |
           npm run build
-
-      # - name: Test
-      #   run: |
-      #     npm run test
 
       - name: Lint code
         run: |

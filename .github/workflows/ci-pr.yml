@@ -3,7 +3,7 @@ name: "CI - Pull Request: Build & Lint"
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - "**/*.md"
 
@@ -36,10 +36,6 @@ jobs:
       - name: Build
         run: |
           npm run build
-
-      # - name: Test
-      #   run: |
-      #     npm run test
 
       - name: Lint code
         run: |
