@@ -33,9 +33,14 @@ jobs:
         run: |
           npm ci
 
-      - name: Build
-        run: |
-          npm run build
+      - name: Setup
+        run: ./scripts/setup.sh
+
+      - name: Build repositories
+        run: ./scripts/build_repos.sh
+
+      - name: Build pages
+        run: ./scripts/build_pages.sh
 
       - name: Lint code
         run: |
