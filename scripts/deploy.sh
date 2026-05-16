@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 npx wrangler pages deploy _site --project-name="${PAGE_NAME}"
 
