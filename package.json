@@ -21,11 +21,12 @@
 		"build:pages": "./scripts/setup.sh; ./scripts/build_pages.sh",
 		"ci:lint": "zizmor .",
 		"ci:lint:fix": "zizmor . --fix=all",
-		"lint:all": "fixpack && npm audit && npm run ci:lint",
-		"prepare": "husky; fixpack || true",
+		"lint:all": "npm audit && npm run lint:package && npm run ci:lint",
+		"lint:package": "fixpack || true",
+		"prepare": "husky; npm run lint:package",
 		"update:artifacts": "artifact update",
 		"update:ci": "PINACT_MIN_AGE=7 pinact run --update",
-		"update:deps": "taze"
+		"update:deps": "taze --all"
 	},
 	"dependencies": {
 		"@tailwindcss/cli": "4.2.4",
@@ -35,12 +36,17 @@
 		"wrangler": "4.85.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "19.8.1",
-		"@commitlint/config-conventional": "19.8.1",
+		"@commitlint/cli": "20.5.3",
+		"@commitlint/config-conventional": "20.5.3",
 		"fixpack": "4.0.0",
 		"husky": "9.1.7",
 		"lint-staged": "16.4.0",
-		"taze": "19.11.0"
+		"taze": "19.12.0"
+	},
+	"overrides": {
+		"ajv": {
+			"fast-uri": "3.1.2"
+		}
 	},
 	"keywords": []
 }

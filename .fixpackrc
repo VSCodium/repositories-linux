@@ -1,4 +1,5 @@
 {
+	"finalNewLine": true,
 	"required": [
 		"dependencies"
 	],
@@ -30,6 +31,5 @@
 		"peerDependencies",
 		"overrides",
 		"keywords"
-	],
-	"finalNewLine": true
+	]
 }

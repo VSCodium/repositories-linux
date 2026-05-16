@@ -2,5 +2,7 @@
 	"force": true,
 	"includeLocked": true,
 	"maturityPeriod": 7,
-	"write": true
+	"packageMode": {
+		"@types/node": "minor"
+	}
 }
