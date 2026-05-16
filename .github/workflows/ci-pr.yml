@@ -29,10 +29,6 @@ jobs:
           node-version-file: .nvmrc
           package-manager-cache: false
 
-      - name: Install dependencies
-        run: |
-          npm ci
-
       - name: Setup
         run: ./scripts/setup.sh
 
