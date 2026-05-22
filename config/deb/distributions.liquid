@@ -1,4 +1,6 @@
 Codename: {{ repo_name }}
 Components: main
 Architectures: {{ repo_arch_deb }}
-{{ gpg_fingerprint | prepend: "SignWith: " }}
+{% if gpg_fingerprint != '' %}
+SignWith: {{ gpg_fingerprint }}
+{% endif %}
