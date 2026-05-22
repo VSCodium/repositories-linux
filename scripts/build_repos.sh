@@ -6,8 +6,10 @@ set -euo pipefail
 
 GH_HOST="${GH_HOST:-github.com}"
 GH_REPOSITORIES="${GH_REPOSITORIES:-VSCodium/vscodium VSCodium/vscodium-insiders}"
+GPG_FINGERPRINT="${GPG_FINGERPRINT:-}"
 REPO_ARCH_DEB="${REPO_ARCH_DEB:-amd64 arm64 armhf}"
 REPO_ARCH_RPM="${REPO_ARCH_RPM:-x86_64 aarch64 armv7hl}"
+REPO_NAME="${REPO_NAME:-vscodium}"
 REPO_NAME="${REPO_NAME:-vscodium}"
 
 GOT_DEB="no"
