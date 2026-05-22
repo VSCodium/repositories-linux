@@ -113,6 +113,8 @@ if [[ "${GOT_DEB}" == "yes" ]]; then
 
   liquify "distributions" "config/deb"
 
+  cat config/deb/distributions
+
   mkdir -p pkgs/deb/conf
   cp config/deb/distributions pkgs/deb/conf/distributions
   touch pkgs/deb/conf/option

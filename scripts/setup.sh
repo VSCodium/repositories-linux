@@ -35,3 +35,5 @@ JSON_DATA=$( jq \
   <<<'{}' )
 
 echo "${JSON_DATA}" > "./liquid.json"
+
+cat liquid.json
