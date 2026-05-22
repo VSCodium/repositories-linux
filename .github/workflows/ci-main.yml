@@ -32,6 +32,14 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Install dependencies
+        run: |
+          until sudo apt update
+          do
+            sleep 1
+          done
+          sudo apt install -y jq createrepo-c coreutils dpkg-dev reprepro
+
       - name: Install zizmor
         run: |
           pipx install zizmor
