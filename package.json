@@ -33,7 +33,7 @@
 		"@tailwindcss/typography": "0.5.19",
 		"liquidjs": "10.25.7",
 		"tailwindcss": "4.2.4",
-		"wrangler": "4.85.0"
+		"wrangler": "4.94.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "20.5.3",
