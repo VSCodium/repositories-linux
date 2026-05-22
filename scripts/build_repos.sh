@@ -22,7 +22,7 @@ get_install_files() {
 
   for ARCH in ${REPO_ARCH_RPM}; do
     for RELEASE in "${RELEASES[@]}"; do
-      if [[ "${RPM_MAP["${ARCH}"]}" != "yes" ]]; then
+      if [[ "${RPM_MAP["${ARCH}"]:-}" != "yes" ]]; then
         FILE="$( echo "${RELEASE}" | jq -r '.assets[] | select(.name | endswith(".rpm")) | select(.name | contains("'"${ARCH}"'")) | .name' )"
         if [[ -n "${FILE}" ]]; then
           GOT_RPM="yes"
@@ -50,7 +50,7 @@ get_install_files() {
 
   for ARCH in ${REPO_ARCH_DEB}; do
     for RELEASE in "${RELEASES[@]}"; do
-      if [[ "${DEB_MAP["${ARCH}"]}" != "yes" ]]; then
+      if [[ "${DEB_MAP["${ARCH}"]:-}" != "yes" ]]; then
         FILE="$( echo "${RELEASE}" | jq -r '.assets[] | select(.name | endswith(".deb")) | select(.name | contains("'"${ARCH}"'")) | .name' )"
         if [[ -n "${FILE}" ]]; then
           GOT_DEB="yes"

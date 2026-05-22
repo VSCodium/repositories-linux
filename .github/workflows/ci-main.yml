@@ -7,6 +7,19 @@ on:
     paths-ignore:
       - "**/*.md"
 
+env:
+  GH_REPOSITORIES: VSCodium/vscodium VSCodium/vscodium-insiders
+  PACKAGE_NAME: codium
+  PAGE_NAME: vscodium-repo
+  PROJECT_NAME: VSCodium
+  PROJECT_URL: https://github.com/VSCodium/vscodium
+  R2_BUCKET_NAME: vscodium-repo
+  R2_BUCKET_URL: https://r2repo.vscodium.dev
+  REPO_ARCH_DEB: amd64 arm64 armhf
+  REPO_ARCH_RPM: x86_64 aarch64 armv7hl
+  REPO_NAME: vscodium
+  REPO_URL: https://repo.vscodium.dev
+
 permissions: {}
 
 jobs:
