@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-if [[ "${CI}" != "true" ]]; then
+if [[ "${CI:-}" != "true" ]]; then
   . ./.env
 fi
 
@@ -15,9 +15,9 @@ JSON_DATA=$( jq \
   --arg gpg_fingerprint "${GPG_FINGERPRINT:-}" \
   --arg package_name    "${PACKAGE_NAME}" \
   --arg project_name    "${PROJECT_NAME}" \
-  --arg project_url     "${PROJECT_URL}" \
+  --arg project_url     "${PROJECT_URL:-}" \
   --arg r2_bucket_name  "${R2_BUCKET_NAME}" \
-  --arg r2_bucket_url   "${R2_BUCKET_URL}" \
+  --arg r2_bucket_url   "${R2_BUCKET_URL:-}" \
   --arg repo_arch_deb   "${REPO_ARCH_DEB}" \
   --arg repo_arch_rpm   "${REPO_ARCH_RPM}" \
   --arg repo_name       "${REPO_NAME}" \

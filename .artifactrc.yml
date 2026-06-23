@@ -1,11 +1,13 @@
-$schema: https://raw.githubusercontent.com/zokugun/artifact/v0.9.0/schemas/v2/install.json
+$schema: https://raw.githubusercontent.com/zokugun/artifact/v0.12.0/schemas/v4/install.json
 artifacts:
   "@daiyam/artifact-lang-js":
-    version: 0.12.3
+    version: 0.14.3
     requires:
       - "22"
+    provides:
+      - "20"
   "@daiyam/artifact-gh-issuehub":
-    version: 0.6.3
+    version: 0.6.5
 variables:
   DISCUSSION_ID: 6
   ISSUE_ID: 5
