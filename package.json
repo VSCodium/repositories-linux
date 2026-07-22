@@ -43,7 +43,11 @@
 		"lint-staged": "16.4.0",
 		"taze": "19.14.1"
 	},
-	"overrides": {},
+	"overrides": {
+		"miniflare": {
+			"sharp": "0.35.0"
+		}
+	},
 	"allowScripts": {
 		"@parcel/watcher": false,
 		"fsevents": true,
